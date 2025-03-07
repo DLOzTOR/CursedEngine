@@ -7,6 +7,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static -static-libgcc -static-libstdc++ -mwindows")
+set(CMAKE_LINK_SEARCH_START_STATIC ON)
+set(CMAKE_LINK_SEARCH_END_STATIC ON)
+set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")  # Предпочитаем статические библиотеки
+
 set(COMMON_INCLUDES
     ${CMAKE_SOURCE_DIR}/lib/glfw/include
     ${CMAKE_SOURCE_DIR}/lib/glew/include
@@ -56,15 +61,12 @@ function(add_example EXAMPLE_NAME)
     target_compile_definitions(${EXAMPLE_NAME} PRIVATE GLEW_STATIC)
 endfunction()
 
-set(CMAKE_EXE_LINKER_FLAGS "-mwindows")
-
 list(APPEND EXAMPLES
     Hello_triangle 
 )
 foreach(EXAMPLE ${EXAMPLES})
     add_example(${EXAMPLE})
 endforeach()
-
 
 
 target_compile_definitions(CursedEngine PRIVATE GLEW_STATIC)
