@@ -1,4 +1,4 @@
-#include "Render\Shader.h"
+#include "Render/Shader.h"
 #include "SimpleLogger.h"
 void SuccessCheck(GLuint descriptor, int status) {
 	SimpleLogger logger("logs/errors.txt");
